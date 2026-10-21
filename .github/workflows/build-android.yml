@@ -35,6 +35,15 @@ jobs:
         with:
           packages: platform-tools
 
+      - name: Create keystore.properties for release signing
+        run: |
+          cat > android/app/keystore.properties << 'EOF'
+RELEASE_STORE_FILE=debug.keystore
+RELEASE_STORE_PASSWORD=android
+RELEASE_KEY_ALIAS=androiddebugkey
+RELEASE_KEY_PASSWORD=android
+EOF
+
       - name: Accept SDK licenses
         run: yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
 
